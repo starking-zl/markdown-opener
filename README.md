@@ -119,8 +119,8 @@ MIT License
 
 ## 📧 联系方式
 
-- 项目主页: https://github.com/yourusername/markdown-opener
-- 问题反馈: https://github.com/yourusername/markdown-opener/issues
+- 项目主页: https://github.com/starking-zl/markdown-opener
+- 问题反馈: https://github.com/starking-zl/markdown-opener/issues
 
 ## 🙏 致谢
 
