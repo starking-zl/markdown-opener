@@ -41,35 +41,42 @@
 | **图表渲染** | Mermaid | ![Mermaid](https://img.shields.io/badge/Mermaid-FF3670?style=flat-square&logo=mermaid&logoColor=white) |
 | **构建工具** | Vite | ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white) |
 
-## 📦 安装
+## 📦 下载和使用
 
-### 前置要求
+### 方式一：直接使用（推荐）
 
+无需安装任何依赖，直接下载对应平台的可执行文件运行即可！
+
+| 平台 | 下载地址 |
+|------|----------|
+| Windows | [app.exe](https://github.com/starking-zl/markdown-opener/releases) |
+| macOS | [markdown-opener.app](https://github.com/starking-zl/markdown-opener/releases) |
+| Linux | [markdown-opener](https://github.com/starking-zl/markdown-opener/releases) |
+
+### 方式二：从源码构建（开发者）
+
+如果你想自己构建应用：
+
+```bash
+# 前置要求
 - Node.js 18+
 - Rust 1.77+
 - pnpm (推荐) 或 npm
 
-### 开发环境
-
-```bash
 # 安装依赖
 pnpm install
 
 # 运行开发服务器
 pnpm tauri dev
-```
 
-### 构建应用
-
-```bash
 # 构建生产版本
 pnpm tauri build
-```
 
-构建完成后，可执行文件位于:
+# 构建产物位置
 - Windows: `src-tauri/target/release/app.exe`
 - macOS: `src-tauri/target/release/markdown-opener.app`
 - Linux: `src-tauri/target/release/markdown-opener`
+```
 
 ## 🎮 使用说明
 
