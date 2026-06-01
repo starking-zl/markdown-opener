@@ -1,5 +1,20 @@
 # Markdown Opener
 
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Vanilla JS](https://img.shields.io/badge/Vanilla_JS-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Tauri](https://img.shields.io/badge/Tauri-2.0-FFC131?style=for-the-badge&logo=tauri&logoColor=white)
+![marked](https://img.shields.io/badge/marked-000000?style=for-the-badge&logo=markdown&logoColor=white)
+![highlight.js](https://img.shields.io/badge/highlight.js-393C3E?style=for-the-badge&logo=highlight.js&logoColor=white)
+![KaTeX](https://img.shields.io/badge/KaTeX-008080?style=for-the-badge&logo=katex&logoColor=white)
+![Mermaid](https://img.shields.io/badge/Mermaid-FF3670?style=for-the-badge&logo=mermaid&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+
+---
+
+![MIT License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-blue?style=flat-square)
+![Made with Love](https://img.shields.io/badge/Made%20with-❤️-ff69b4?style=flat-square)
+
 一个基于 Tauri 的轻量级 Markdown 查看器和编辑器，支持 Windows、macOS 和 Linux。
 
 ## ✨ 特性
@@ -16,13 +31,15 @@
 
 ## 🚀 技术栈
 
-- **前端框架**: TypeScript + Vanilla JS
-- **桌面框架**: Tauri 2.0
-- **Markdown 解析**: marked
-- **代码高亮**: highlight.js
-- **数学公式**: KaTeX
-- **图表渲染**: Mermaid
-- **构建工具**: Vite
+| 技术 | 说明 | 徽章 |
+|------|------|------|
+| **前端语言** | TypeScript + JavaScript | ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white) ![Vanilla JS](https://img.shields.io/badge/Vanilla_JS-F7DF1E?style=flat-square&logo=javascript&logoColor=black) |
+| **桌面框架** | Tauri 2.0 | ![Tauri](https://img.shields.io/badge/Tauri-2.0-FFC131?style=flat-square&logo=tauri&logoColor=white) |
+| **Markdown 解析** | marked | ![marked](https://img.shields.io/badge/marked-000000?style=flat-square&logo=markdown&logoColor=white) |
+| **代码高亮** | highlight.js | ![highlight.js](https://img.shields.io/badge/highlight.js-393C3E?style=flat-square&logo=highlight.js&logoColor=white) |
+| **数学公式** | KaTeX | ![KaTeX](https://img.shields.io/badge/KaTeX-008080?style=flat-square&logo=katex&logoColor=white) |
+| **图表渲染** | Mermaid | ![Mermaid](https://img.shields.io/badge/Mermaid-FF3670?style=flat-square&logo=mermaid&logoColor=white) |
+| **构建工具** | Vite | ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white) |
 
 ## 📦 安装
 
