@@ -79,10 +79,10 @@ pnpm tauri build
 ## 🌟 预览
 
 ### 浅色主题
-![Light Theme](https://via.placeholder.com/800x600?text=Light+Theme)
+![Light Theme](https://raw.githubusercontent.com/starking-zl/markdown-opener/main/assets/screenshots/light-theme.png)
 
 ### 深色主题
-![Dark Theme](https://via.placeholder.com/800x600?text=Dark+Theme)
+![Dark Theme](https://raw.githubusercontent.com/starking-zl/markdown-opener/main/assets/screenshots/dark-theme.png)
 
 ## 📄 许可证
 
