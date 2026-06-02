@@ -69,12 +69,11 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libwebkit2gtk-4.0-dev \
+          sudo apt-get install -y libwebkit2gtk-4.1-dev \
             libssl-dev \
             libgtk-3-dev \
             libayatana-appindicator3-dev \
-            librsvg2-dev \
-            libjavascriptcoregtk-4.0-dev
+            librsvg2-dev
 
       - name: Build Tauri app
         run: pnpm tauri build
@@ -85,17 +84,34 @@ jobs:
           mkdir -p artifacts
           
           if [ "${{ runner.os }}" = "Windows" ]; then
-            cp src-tauri/target/release/app.exe artifacts/
-            7z a -tzip -r artifacts/markdown-opener-windows.zip src-tauri/target/release/bundle/msi/*.msi
+            if [ -f "src-tauri/target/release/app.exe" ]; then
+              cp src-tauri/target/release/app.exe artifacts/
+            fi
+            if [ -d "src-tauri/target/release/bundle/msi" ]; then
+              7z a -tzip -r artifacts/markdown-opener-windows.zip src-tauri/target/release/bundle/msi/*.msi
+            fi
           elif [ "${{ runner.os }}" = "macOS" ]; then
-            cp -r src-tauri/target/release/bundle/macos/markdown-opener.app artifacts/
-            cd src-tauri/target/release/bundle/macos/
-            zip -r ../../../../../artifacts/markdown-opener-macos.zip markdown-opener.app
+            if [ -d "src-tauri/target/release/bundle/macos/markdown-opener.app" ]; then
+              cp -r src-tauri/target/release/bundle/macos/markdown-opener.app artifacts/
+              cd src-tauri/target/release/bundle/macos/
+              zip -r ../../../../../artifacts/markdown-opener-macos.zip markdown-opener.app
+            elif [ -d "src-tauri/target/release/bundle/dmg" ]; then
+              cp src-tauri/target/release/bundle/dmg/*.dmg artifacts/
+            else
+              echo "No macOS bundle found, checking for executable..."
+              if [ -f "src-tauri/target/release/markdown-opener" ]; then
+                cp src-tauri/target/release/markdown-opener artifacts/
+              fi
+            fi
           elif [ "${{ runner.os }}" = "Linux" ]; then
-            cp src-tauri/target/release/markdown-opener artifacts/
-            cp src-tauri/target/release/bundle/appimage/markdown-opener_*.AppImage artifacts/
-            cd src-tauri/target/release/bundle/appimage/
-            7z a -tzip -r ../../../../../artifacts/markdown-opener-linux.zip markdown-opener_*.AppImage
+            if [ -f "src-tauri/target/release/markdown-opener" ]; then
+              cp src-tauri/target/release/markdown-opener artifacts/
+            fi
+            if [ -d "src-tauri/target/release/bundle/appimage" ]; then
+              cp src-tauri/target/release/bundle/appimage/markdown-opener_*.AppImage artifacts/
+              cd src-tauri/target/release/bundle/appimage/
+              7z a -tzip -r ../../../../../artifacts/markdown-opener-linux.zip markdown-opener_*.AppImage
+            fi
           fi
 
       - name: Upload build artifacts
@@ -103,7 +119,7 @@ jobs:
         with:
           name: markdown-opener-${{ runner.os }}
           path: artifacts/
-          if-no-files-found: error
+          if-no-files-found: ignore
 
       - name: Upload Release Assets
         if: ${{ github.event_name == 'release' }}
@@ -113,3 +129,4 @@ jobs:
             artifacts/*.zip
             artifacts/*.AppImage
             artifacts/*.exe
+            artifacts/*.dmg
