@@ -104,13 +104,23 @@ jobs:
               fi
             fi
           elif [ "${{ runner.os }}" = "Linux" ]; then
+            echo "Looking for Linux artifacts..."
+            ls -la src-tauri/target/release/ || true
+            if [ -d "src-tauri/target/release/bundle" ]; then
+              ls -la src-tauri/target/release/bundle/ || true
+            fi
+            
             if [ -f "src-tauri/target/release/markdown-opener" ]; then
               cp src-tauri/target/release/markdown-opener artifacts/
+              chmod +x artifacts/markdown-opener
             fi
+            
             if [ -d "src-tauri/target/release/bundle/appimage" ]; then
-              cp src-tauri/target/release/bundle/appimage/markdown-opener_*.AppImage artifacts/
-              cd src-tauri/target/release/bundle/appimage/
-              7z a -tzip -r ../../../../../artifacts/markdown-opener-linux.zip markdown-opener_*.AppImage
+              APPIMAGE_FILE=$(find src-tauri/target/release/bundle/appimage -name "*.AppImage" -type f 2>/dev/null | head -1)
+              if [ -n "$APPIMAGE_FILE" ]; then
+                cp "$APPIMAGE_FILE" artifacts/
+                chmod +x "$(basename "$APPIMAGE_FILE")"
+              fi
             fi
           fi
 
