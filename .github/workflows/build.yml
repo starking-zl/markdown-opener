@@ -119,7 +119,7 @@ jobs:
               APPIMAGE_FILE=$(find src-tauri/target/release/bundle/appimage -name "*.AppImage" -type f 2>/dev/null | head -1)
               if [ -n "$APPIMAGE_FILE" ]; then
                 cp "$APPIMAGE_FILE" artifacts/
-                chmod +x "$(basename "$APPIMAGE_FILE")"
+                chmod +x "artifacts/$(basename "$APPIMAGE_FILE")"
               fi
             fi
           fi
