@@ -5,7 +5,7 @@ import katex from 'katex'
 import mermaid from 'mermaid'
 import { open, save } from '@tauri-apps/plugin-dialog'
 import { readTextFile, writeFile, readDir } from '@tauri-apps/plugin-fs'
-import { basename, join } from '@tauri-apps/api/path'
+import { basename, join, resolveResource } from '@tauri-apps/api/path'
 import { getArgs } from '@tauri-apps/api/cli'
 
 marked.setOptions({
@@ -556,16 +556,43 @@ function toggleTheme() {
     </svg>`
 }
 
-function handleDrop(e: DragEvent) {
+async function handleDrop(e: DragEvent) {
   e.preventDefault()
 
-  const files = e.dataTransfer?.files
-  if (!files || files.length === 0) return
+  const items = e.dataTransfer?.items
+  if (!items || items.length === 0) {
+    const files = e.dataTransfer?.files
+    if (!files || files.length === 0) return
+    
+    const file = files[0]
+    if (file.name.endsWith('.md')) {
+      const filePath = (file as unknown as { path?: string }).path
+      if (filePath) {
+        openMarkdownFile(filePath)
+      } else {
+        console.log('File path not available from drop event')
+      }
+    }
+    return
+  }
 
-  const file = files[0]
-  if (file.name.endsWith('.md')) {
-    const filePath = (file as unknown as { path?: string }).path || file.name
-    openMarkdownFile(filePath)
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i]
+    if (item.kind === 'file') {
+      const fileEntry = item.webkitGetAsEntry?.()
+      if (fileEntry && fileEntry.isFile && fileEntry.name.endsWith('.md')) {
+        const filePath = await new Promise<string>((resolve) => {
+          fileEntry.file((f: File) => {
+            const path = (f as unknown as { path?: string }).path
+            resolve(path || fileEntry.name)
+          })
+        })
+        if (filePath) {
+          openMarkdownFile(filePath)
+          break
+        }
+      }
+    }
   }
 }
 
