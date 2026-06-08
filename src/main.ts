@@ -6,6 +6,7 @@ import mermaid from 'mermaid'
 import { open, save } from '@tauri-apps/plugin-dialog'
 import { readTextFile, writeFile, readDir } from '@tauri-apps/plugin-fs'
 import { basename, join } from '@tauri-apps/api/path'
+import { getArgs } from '@tauri-apps/api/cli'
 
 marked.setOptions({
   breaks: true,
@@ -572,7 +573,7 @@ function handleDragOver(e: DragEvent) {
   e.preventDefault()
 }
 
-function init() {
+async function init() {
   const header = createHeader()
   const sidebar = createSidebar()
   const editorContainer = createEditorContainer()
@@ -590,6 +591,10 @@ function init() {
   editorPanel.addEventListener('drop', handleDrop)
   editorPanel.addEventListener('dragover', handleDragOver)
 
+  const previewPanel = document.querySelector('.preview-panel') as HTMLElement
+  previewPanel.addEventListener('drop', handleDrop)
+  previewPanel.addEventListener('dragover', handleDragOver)
+
   const theme = localStorage.getItem('theme')
   if (theme === 'dark') {
     state.isDark = true
@@ -598,6 +603,18 @@ function init() {
     themeToggle.innerHTML = `<svg class="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>`
+  }
+
+  try {
+    const args = await getArgs()
+    if (args && args.length > 0) {
+      const filePath = args[0]
+      if (filePath && filePath.endsWith('.md')) {
+        openMarkdownFile(filePath)
+      }
+    }
+  } catch (e) {
+    console.log('No command line arguments')
   }
 }
 

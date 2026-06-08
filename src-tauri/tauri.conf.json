@@ -33,6 +33,13 @@
       "icons/icon.icns",
       "icons/icon.ico"
     ],
+    "fileAssociations": [
+      {
+        "ext": "md",
+        "name": "Markdown",
+        "description": "Markdown Document"
+      }
+    ],
     "linux": {
       "appimage": {
         "bundleMediaFramework": false
